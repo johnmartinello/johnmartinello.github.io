@@ -21,18 +21,6 @@ The app was built almost entirely using Agent mode in Cursor, with only a few ti
 
 I know the code probably sucks and it's a bloated mess, but I was only trying to build something useful for me, so I'm not really concerned. It is my first time building an app almost entirely "vibe coding" (I hate this term) so I kinda had fun.
 
-## Screenshots
-
-Here are some screenshots of the app in action:
-
-{% include image.html src="/assets/images/dreamweavemenu.png" alt="Dreamweave Menu Interface" caption="The main menu interface" %}
-
-{% include image.html src="/assets/images/dreamweavegraph.png" alt="Dreamweave connections Graph" caption="graph showing dream connections" %}
-
-{% include image.html src="/assets/images/dreamweaveeditor.png" alt="Dreamweave Dream Editor" caption="The dream journaling" %}
-
-{% include image.html src="/assets/images/dreamweavecitations.png" alt="Dreamweave Citations Management" caption="Dream citation for tracking which dream mentioned another" %}
-
 ## Repository
 
 You can check out the source code on GitHub (and download it) in this [link](https://github.com/johnmartinello/Dreamweave)
