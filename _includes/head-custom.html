@@ -23,6 +23,68 @@
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
-
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const langLinks = document.querySelectorAll('.lang-link');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const translatableElements = document.querySelectorAll('.translatable');
+    
+    // Get current language from localStorage or default to 'en'
+    let currentLang = localStorage.getItem('selectedLanguage') || 'en';
+    
+    // Function to update navigation text
+    function updateNavText(lang) {
+        navLinks.forEach(link => {
+            const text = link.getAttribute('data-' + lang);
+            if (text) {
+                link.textContent = text;
+            }
+        });
+    }
+    
+    // Function to update content text
+    function updateContentText(lang) {
+        translatableElements.forEach(element => {
+            const text = element.getAttribute('data-' + lang);
+            if (text) {
+                element.textContent = text;
+            }
+        });
+    }
+    
+    // Function to update active language link
+    function updateActiveLang(lang) {
+        langLinks.forEach(link => {
+            if (link.getAttribute('data-lang') === lang) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+    
+    // Initialize with current language
+    updateNavText(currentLang);
+    updateContentText(currentLang);
+    updateActiveLang(currentLang);
+    
+    // Add click handlers to language links
+    langLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const selectedLang = this.getAttribute('data-lang');
+            
+            // Update current language
+            currentLang = selectedLang;
+            localStorage.setItem('selectedLanguage', selectedLang);
+            
+            // Update UI
+            updateNavText(selectedLang);
+            updateContentText(selectedLang);
+            updateActiveLang(selectedLang);
+        });
+    });
+});
+</script>
 
 

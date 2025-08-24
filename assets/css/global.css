@@ -63,10 +63,24 @@ main {
 
 nav {
     margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-nav a {
+nav .nav-links {
+    display: flex;
+    align-items: center;
+}
+
+nav .nav-links a {
     margin-right: 8px;
+}
+
+nav .language-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .nav-link {
@@ -338,6 +352,19 @@ td {
 
     .image-caption {
         font-size: 0.85em;
+    }
+    
+    nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    nav .nav-links {
+        justify-content: center;
+    }
+    
+    nav .language-toggle {
+        justify-content: center;
     }
 }
 

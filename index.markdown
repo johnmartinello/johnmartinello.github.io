@@ -3,10 +3,10 @@ layout: default
 title: Home
 ---
 
-<h2>Hello.</h2>
-<p>posting about my thoughts and things that interest me.</p>
+<h2 class="translatable" data-en="Hello." data-pt="Olá.">.</h2>
+<p class="translatable" data-en="posting about my thoughts and things that interest me." data-pt="postando sobre meus pensamentos e coisas que me interessam."></p>
 
-<h2>Latest Posts</h2>
+<h2 class="translatable" data-en="Latest Posts" data-pt="Posts Recentes">Latest Posts</h2>
 <ul class="latest-posts">
   {% for post in site.posts limit:3 %}
     <li>
