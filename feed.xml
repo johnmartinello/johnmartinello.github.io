@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://johnmartinello.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://johnmartinello.github.io/" rel="alternate" type="text/html" /><updated>2026-01-01T19:05:31+00:00</updated><id>https://johnmartinello.github.io/feed.xml</id><title type="html">joaolm0</title><subtitle>A blog about technology, programming, and other things.</subtitle><entry><title type="html">Dreamweave!</title><link href="https://johnmartinello.github.io/2025/08/21/dreamweave!.html" rel="alternate" type="text/html" title="Dreamweave!" /><published>2025-08-21T16:04:02+00:00</published><updated>2025-08-21T16:04:02+00:00</updated><id>https://johnmartinello.github.io/2025/08/21/dreamweave!</id><content type="html" xml:base="https://johnmartinello.github.io/2025/08/21/dreamweave!.html"><![CDATA[<h2 id="the-problem">The Problem</h2>
+
+<p>Recently I started to notice that I wasn’t remembering my dreams like I used to, so I decided to start journaling them again. I would try to remember what they were about, the plots, characters, and write everything down. I was using Notepad on my phone, but I wanted more features, so I searched for dream journaling apps.</p>
+
+<p>I remembered I had already used Lucidity Dreams, but after trying it again, I found it too bloated with features I didn’t care about and ads for their premium service.</p>
+
+<h2 id="the-solution">The Solution</h2>
+
+<p>Because of this, I decided to code my own dream journaling app, and I can say that it’s working! I spent the last 2 days (and ~$25 dollars in AI API calls, thank you Cursor Pro Student) building an Electron desktop app with React (which I never used before, hehe) and am honestly very impressed with the result.</p>
+
+<h2 id="the-development-process">The Development Process</h2>
+
+<p>The app was built almost entirely using Agent mode in Cursor, with only a few times that I had to manually intervene in the code. Countless prompts to GPT-5, Gemini 2.5 Pro, Sonnet 4, and Auto model made this possible.</p>
+
+<p>I know the code probably sucks and it’s a bloated mess, but I was only trying to build something useful for me, so I’m not really concerned. It is my first time building an app almost entirely “vibe coding” (I hate this term) so I kinda had fun.</p>
+
+<h2 id="repository">Repository</h2>
+
+<p>You can check out the source code on GitHub (and download it) in this <a href="https://github.com/johnmartinello/Dreamweave">link</a></p>]]></content><author><name></name></author><category term="vibe-coding" /><category term="app-development" /><category term="dream-journaling" /><category term="electron" /><category term="react" /><summary type="html"><![CDATA[The Problem]]></summary></entry><entry><title type="html">first post</title><link href="https://johnmartinello.github.io/2025/08/19/first-post.html" rel="alternate" type="text/html" title="first post" /><published>2025-08-19T16:04:02+00:00</published><updated>2025-08-19T16:04:02+00:00</updated><id>https://johnmartinello.github.io/2025/08/19/first-post</id><content type="html" xml:base="https://johnmartinello.github.io/2025/08/19/first-post.html"><![CDATA[<p>just testing out.λ</p>
+
+<p>Base theme “Terminal” from <a href="https://bearblog.dev/">Bearblog</a>.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[just testing out.λ]]></summary></entry></feed>

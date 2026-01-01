@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About · joaolm0</title>
+    
+    <meta name="description" content="A blog about technology, programming, and other things.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+<link href="/assets/css/global.css" rel="stylesheet">
+
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  };
+  // Re-render math when navigating with Turbolinks or similar (no-op if not present)
+  document.addEventListener('turbolinks:load', function() {
+    if (window.MathJax && window.MathJax.typeset) {
+      window.MathJax.typeset();
+    }
+  });
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const langLinks = document.querySelectorAll('.lang-link');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const translatableElements = document.querySelectorAll('.translatable');
+    
+    // Get current language from localStorage or default to 'en'
+    let currentLang = localStorage.getItem('selectedLanguage') || 'en';
+    
+    // Function to update navigation text
+    function updateNavText(lang) {
+        navLinks.forEach(link => {
+            const text = link.getAttribute('data-' + lang);
+            if (text) {
+                link.textContent = text;
+            }
+        });
+    }
+    
+    // Function to update content text
+    function updateContentText(lang) {
+        translatableElements.forEach(element => {
+            const text = element.getAttribute('data-' + lang);
+            if (text) {
+                element.textContent = text;
+            }
+        });
+    }
+    
+    // Function to update active language link
+    function updateActiveLang(lang) {
+        langLinks.forEach(link => {
+            if (link.getAttribute('data-lang') === lang) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+    
+    // Initialize with current language
+    updateNavText(currentLang);
+    updateContentText(currentLang);
+    updateActiveLang(currentLang);
+    
+    // Add click handlers to language links
+    langLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const selectedLang = this.getAttribute('data-lang');
+            
+            // Update current language
+            currentLang = selectedLang;
+            localStorage.setItem('selectedLanguage', selectedLang);
+            
+            // Update UI
+            updateNavText(selectedLang);
+            updateContentText(selectedLang);
+            updateActiveLang(selectedLang);
+        });
+    });
+});
+</script>
+
+
+
+  </head>
+  <body>
+    <header>
+      <a class="title" href="/"><h1>joaolm0</h1></a>
+      <nav>
+        <div class="nav-links">
+          <a class="nav-link" href="/" data-en="home" data-pt="início"></a>
+          <a class="nav-link" href="/blog/" data-en="blog" data-pt="blog"></a>
+          <a class="nav-link" href="/about/" data-en="about" data-pt="sobre"></a>
+        </div>
+        
+        <div class="language-toggle">
+          <a href="#" class="lang-link active" data-lang="en">en</a>
+          <span>|</span>
+          <a href="#" class="lang-link" data-lang="pt">pt</a>
+        </div>
+      </nav>
+      
+    </header>
+
+    <main>
+      <h2>João lucas Martinello</h2>
+<p class="translatable" data-en="i'm a software developer and cs student (6th semester). I have professional experience with web development, AI aplications and data engineering. I like cs, AI/ML, math, retro gaming and music. Currently developing my own retro inspired horror game." data-pt="sou desenvolvedor de software e estudante de cc (6º semestre). Tenho experiência profissional com desenvolvimento web, aplicações de IA e engenharia de dados. Gosto de cc, IA/ML, matemática, jogos retrô e música. Atualmente desenvolvendo meu próprio jogo de terror retrô.">
+
+<h2 class="translatable" data-en="Projects" data-pt="Projetos"></h2>
+
+<ul>
+  <li>
+    <strong><a href="https://github.com/johnmartinello/Dreamweave" target="_blank">Dreamweave</a></strong> - <span class="translatable" data-en="a dream journaling desktop app" data-pt="um app desktop para diário de sonhos"></span>
+  </li>
+  <li>
+    <strong><a href="https://github.com/johnmartinello/movie-recommender" target="_blank">Movie Recommender</a></strong> - <span class="translatable" data-en="a movie recommender system using embeddings and similarity search" data-pt="um sistema de recomendação de filmes usando embeddings e busca por similaridade"></span>
+  </li>
+</ul>
+</p>
+
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="social-icons">
+          
+          <a class="social-icon" href="https://github.com/johnmartinello" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58l-.02-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.4-1.34-1.78-1.34-1.78-1.1-.75.08-.73.08-.73 1.21.09 1.85 1.24 1.85 1.24 1.08 1.84 2.84 1.31 3.53 1 .11-.78.42-1.31.76-1.61-2.66-.31-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.31-.54-1.56.12-3.26 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.7.24 2.95.12 3.26.77.84 1.23 1.9 1.23 3.22 0 4.61-2.81 5.61-5.49 5.92.43.37.81 1.1.81 2.22l-.01 3.29c0 .32.22.7.82.58A12 12 0 0 0 12 .5z"/></svg>
+          </a>
+          
+          
+          
+          <a class="social-icon" href="https://x.com/joaolm0" aria-label="Twitter / X">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2H21.5l-7.5 8.57L22.5 22h-6.094l-4.77-5.73L5.9 22H2.64l8.03-9.17L1.5 2h6.22l4.32 5.18L18.244 2zm-2.14 18h2.11L7.96 4h-2.2l10.343 16z"/></svg>
+          </a>
+          
+        </div>
+      </div>
+    </footer>
+  </body>
+  </html>
+
+
