@@ -26,9 +26,17 @@
     <header>
       <a class="title" href="{{ '/' | relative_url }}"><h1>{{ site.title }}</h1></a>
       <nav>
-        <a class="nav-link" href="{{ '/' | relative_url }}">home</a>
-        <a class="nav-link" href="{{ '/blog/' | relative_url }}">blog</a>
-        <a class="nav-link" href="{{ '/about/' | relative_url }}">about</a>  
+        <div class="nav-links">
+          <a class="nav-link" href="{{ '/' | relative_url }}" data-en="home" data-pt="início"></a>
+          <a class="nav-link" href="{{ '/blog/' | relative_url }}" data-en="blog" data-pt="blog"></a>
+          <a class="nav-link" href="{{ '/about/' | relative_url }}" data-en="about" data-pt="sobre"></a>
+        </div>
+        
+        <div class="language-toggle">
+          <a href="#" class="lang-link active" data-lang="en">en</a>
+          <span>|</span>
+          <a href="#" class="lang-link" data-lang="pt">pt</a>
+        </div>
       </nav>
     </header>
 

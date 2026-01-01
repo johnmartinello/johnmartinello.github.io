@@ -5,16 +5,16 @@
     --font-main: 'Fira Code', monospace;
     --font-secondary: 'Fira Code', monospace;
     --font-scale: 1em;
-    --background-color: #1a1a1a;
-    --heading-color: #f5f5dc;
-    --text-color: #f5f5dc;
-    --link-color: #f5f5dc;
-    --visited-color: #f5f5dc;
-    --code-background-color: #2d2d2d;
-    --code-color: #f5f5dc;
-    --blockquote-color: #2d2d2d;
-    --border-color: #FF4500;
-    --margin-color: #FF4500;
+    --background-color: #1e1e1e;
+    --heading-color: #ffffff;
+    --text-color: #ffffff;
+    --link-color: #ffffff;
+    --visited-color: #ffffff;
+    --code-background-color: #2a2a2a;
+    --code-color: #ffffff;
+    --blockquote-color: #2a2a2a;
+    --border-color: #ffffff;
+    --margin-color: #ffffff;
 }
 
 body {
@@ -258,26 +258,26 @@ td {
 
 /* New utility classes */
 .text-beige {
-    color: #f5f5dc;
+    color: #ffffff;
 }
 
 .border-orange {
-    border-color: #FF4500;
+    border-color: #ffffff;
 }
 
 .margin-orange {
     margin: 10px;
     background-clip: padding-box;
-    background-color: #FF4500;
+    background-color: #ffffff;
 }
 
 .link-beige {
-    color: #f5f5dc;
+    color: #ffffff;
     text-decoration: none;
 }
 
 .link-beige:hover {
-    color: #f5f5dc;
+    color: #ffffff;
     text-decoration: underline;
 }
 
@@ -295,7 +295,7 @@ td {
     width: 100%;
     height: auto;
     border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(255, 69, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.15);
     border: 1px solid var(--border-color);
     display: block;
     object-fit: contain;
@@ -346,7 +346,7 @@ td {
     .responsive-image {
         max-width: 100%;
         width: 100%;
-        box-shadow: 0 1px 4px rgba(255, 69, 0, 0.2);
+        box-shadow: 0 1px 4px rgba(255, 255, 255, 0.15);
         object-fit: contain;
     }
 
