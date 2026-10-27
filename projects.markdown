@@ -2,6 +2,7 @@
 layout: default
 title: Projects
 permalink: /projects/
+inset: true
 ---
 
 <h2 class="translatable" data-en="Projects" data-pt="Projetos">Projects</h2>

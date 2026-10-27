@@ -9,17 +9,17 @@
     {% endif %}
     {% include head-custom.html %}
   </head>
-  <body{% if page.title == 'Home' or page.title == 'Projects' or page.title == 'Blog' %} class="has-inset"{% endif %}>
+  <body>
     {% include water.html %}
     <header>
       <a class="title" href="{{ '/' | relative_url }}"><span class="site-name">{{ site.title }}</span></a>
       <nav>
         <div class="nav-links">
-          <a class="nav-link" href="{{ '/' | relative_url }}" data-en="home" data-pt="início"></a>
+          <a class="nav-link" href="{{ '/' | relative_url }}" data-en="home" data-pt="início">home</a>
           {% if site.show_blog %}
-          <a class="nav-link" href="{{ '/blog/' | relative_url }}" data-en="blog" data-pt="blog"></a>
+          <a class="nav-link" href="{{ '/blog/' | relative_url }}" data-en="blog" data-pt="blog">blog</a>
           {% endif %}
-          <a class="nav-link" href="{{ '/projects/' | relative_url }}" data-en="projects" data-pt="projetos"></a>
+          <a class="nav-link" href="{{ '/projects/' | relative_url }}" data-en="projects" data-pt="projetos">projects</a>
         </div>
         
         <div class="language-toggle">
@@ -31,7 +31,7 @@
       
     </header>
 
-    <main{% if page.title == 'Home' or page.title == 'Projects' or page.title == 'Blog' %} class="inset"{% endif %}>
+    <main{% if page.inset %} class="inset"{% endif %}>
       {{ content }}
     </main>
 
