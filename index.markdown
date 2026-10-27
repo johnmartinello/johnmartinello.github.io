@@ -3,9 +3,13 @@ layout: default
 title: Home
 ---
 
-<h2 class="translatable" data-en="Hello." data-pt="Olá.">.</h2>
-<p class="translatable" data-en="posting about my thoughts and things that interest me." data-pt="postando sobre meus pensamentos e coisas que me interessam."></p>
+<p class="intro-line translatable" data-en="Hi, I'm João Lucas Martinello." data-pt="Olá, me chamo João Lucas Martinello.">Hi, I'm João Lucas Martinello.</p>
+<a></a>
+<p class="intro">
+  <span class="translatable" data-en="Software Developer Intern at " data-pt="Software Developer Intern na ">Software Developer Intern at</span>@HP. <span class="translatable" data-en="Experience with web development, AI applications, and data engineering. CS student at PUCRS." data-pt="Experiência com desenvolvimento web, aplicações de IA e engenharia de dados. Estudante de Ciência da Computação na PUCRS.">. Experience with web development, AI applications, and data engineering. CS student at PUCRS.</span>
+</p>
 
+{% if site.show_blog %}
 <h2 class="translatable" data-en="Latest Posts" data-pt="Posts Recentes">Latest Posts</h2>
 <ul class="latest-posts">
   {% for post in site.posts limit:3 %}
@@ -16,6 +20,5 @@ title: Home
       <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
     </li>
   {% endfor %}
-  </ul>
-
-
+</ul>
+{% endif %}

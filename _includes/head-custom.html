@@ -1,6 +1,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="{{ '/assets/css/global.css' | relative_url }}" rel="stylesheet">
 
 <script>
@@ -22,12 +22,12 @@
   });
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script src="{{ '/assets/js/nav.js' | relative_url }}" defer></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const langLinks = document.querySelectorAll('.lang-link');
     const navLinks = document.querySelectorAll('.nav-link');
-    const translatableElements = document.querySelectorAll('.translatable');
     
     // Get current language from localStorage or default to 'en'
     let currentLang = localStorage.getItem('selectedLanguage') || 'en';
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Function to update content text
     function updateContentText(lang) {
-        translatableElements.forEach(element => {
+        document.querySelectorAll('.translatable').forEach(element => {
             const text = element.getAttribute('data-' + lang);
             if (text) {
                 element.textContent = text;
@@ -63,10 +63,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Initialize with current language
-    updateNavText(currentLang);
-    updateContentText(currentLang);
-    updateActiveLang(currentLang);
+    window.applySiteLanguage = function () {
+        updateNavText(currentLang);
+        updateContentText(currentLang);
+        updateActiveLang(currentLang);
+    };
+
+    window.applySiteLanguage();
     
     // Add click handlers to language links
     langLinks.forEach(link => {
@@ -79,9 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('selectedLanguage', selectedLang);
             
             // Update UI
-            updateNavText(selectedLang);
-            updateContentText(selectedLang);
-            updateActiveLang(selectedLang);
+            window.applySiteLanguage();
         });
     });
 });
