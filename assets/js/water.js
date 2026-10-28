@@ -163,37 +163,40 @@
     }
     var dprChanged = nextDpr !== dpr || !atlas;
     dpr = nextDpr;
-    cols = nextCols;
-    rows = nextRows;
     canvas.width = nextW;
     canvas.height = nextH;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var count = cols * rows;
-    warp = new Float32Array(count);
-    warpNext = new Float32Array(count);
-    energy = new Float32Array(count);
-    readMask = new Float32Array(count);
-    readMask.fill(1);
-    hold = new Float32Array(count);
-    pack = new Uint32Array(count);
-    packBucket = new Uint8Array(count);
-    packOrder = new Uint32Array(count);
-    for (var y = 0; y < rows; y++) {
-      var row = y * cols;
-      for (var x = 0; x < cols; x++) hold[row + x] = 0.9 + hash(x, y) * 0.03;
-    }
     if (dprChanged) buildAtlas();
+    if (nextCols !== cols || nextRows !== rows) {
+      cols = nextCols;
+      rows = nextRows;
+      var count = cols * rows;
+      warp = new Float32Array(count);
+      warpNext = new Float32Array(count);
+      energy = new Float32Array(count);
+      readMask = new Float32Array(count);
+      hold = new Float32Array(count);
+      pack = new Uint32Array(count);
+      packBucket = new Uint8Array(count);
+      packOrder = new Uint32Array(count);
+      for (var y = 0; y < rows; y++) {
+        var row = y * cols;
+        for (var x = 0; x < cols; x++) hold[row + x] = 0.9 + hash(x, y) * 0.03;
+      }
+    }
     maskDirty = true;
     return true;
   }
 
+  function paint() {
+    if (resizePending) applyResize();
+    if (maskDirty) rebuildMask();
+    draw();
+  }
+
   function requestResize() {
     resizePending = true;
-    maskDirty = true;
-    if (running) return;
-    applyResize();
-    rebuildMask();
-    draw();
+    markMask();
   }
 
   function paintBox(l, t, r, b) {
@@ -250,10 +253,7 @@
     maskScheduled = true;
     requestAnimationFrame(function () {
       maskScheduled = false;
-      if (running) return;
-      if (resizePending) applyResize();
-      if (maskDirty) rebuildMask();
-      draw();
+      if (!running) paint();
     });
   }
 
@@ -407,8 +407,11 @@
         var alpha = 0.05 + edge * 0.4 + splashAmt * 0.38 + swell * 0.08;
         if (alpha > 0.62) alpha = 0.62;
         var speak = mask[i];
-        if (speak < 1) alpha *= (0.62 + 0.38 * speak) * (0.5 + 0.5 * speak);
-        if (alpha < 0.05) continue;
+        if (speak < 1) {
+          alpha *= 0.5 + 0.5 * speak;
+          if (alpha < 0.05) continue;
+          alpha *= 0.62 + 0.38 * speak;
+        }
 
         var glyph = 0;
         if (hit > 0.4 || crest > 0.82) glyph = 2;
@@ -473,7 +476,7 @@
     if (!running) return;
     if (reduced.matches) {
       stop();
-      draw();
+      paint();
       return;
     }
     var mustDraw = false;
@@ -549,7 +552,7 @@
   reduced.addEventListener("change", function () {
     if (reduced.matches) {
       stop();
-      draw();
+      paint();
     } else {
       start();
       scheduleAmbient();
@@ -575,9 +578,8 @@
     document.fonts.ready.then(refreshGlyphs);
   }
 
-  applyResize();
-  rebuildMask();
-  if (reduced.matches) draw();
+  resizePending = true;
+  if (reduced.matches) markMask();
   else {
     start();
     scheduleAmbient();

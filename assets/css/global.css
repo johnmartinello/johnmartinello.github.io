@@ -111,13 +111,8 @@ p {
 }
 
 .intro-line {
-    margin-bottom: 0;
     font-size: 1rem;
     font-weight: inherit;
-}
-
-.intro-line + .intro {
-    margin-top: 0;
 }
 
 a {
@@ -301,6 +296,10 @@ footer {
 }
 
 @media (min-width: 961px) {
+    body:has(main.inset) .language-toggle {
+        transform: translateX(calc(var(--inset-shift) + var(--inset-width) + 3rem - var(--width)));
+    }
+
     body:has(main.inset) footer {
         position: fixed;
         z-index: 2;
