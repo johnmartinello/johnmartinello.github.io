@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "build": "bundle exec jekyll build",
+    "build:production": "bundle exec jekyll build"
+  }
+}
