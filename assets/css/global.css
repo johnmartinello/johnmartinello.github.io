@@ -2,14 +2,78 @@
     --width: 40rem;
     --font: "Zen Kaku Gothic New", "Segoe UI", system-ui, sans-serif;
     --mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", monospace;
+    --inset-shift: min(25vw, 30rem);
+    --inset-width: min(22rem, 50vw);
+    color-scheme: dark;
     --bg: #141311;
     --fg: #f4efe6;
     --muted: #9c968c;
     --line: rgba(244, 239, 230, 0.16);
     --link-line: rgba(244, 239, 230, 0.45);
-    --inset-shift: min(25vw, 30rem);
-    --inset-width: min(22rem, 50vw);
-    color-scheme: dark;
+    --code-bg: rgba(244, 239, 230, 0.06);
+    --pre-bg: rgba(244, 239, 230, 0.04);
+    --selection: rgba(244, 239, 230, 0.18);
+    --water-bg: #141311;
+    --water-green-0: 16, 92, 58;
+    --water-green-d: 14, 70, 18;
+    --water-blue-0: 22, 96, 150;
+    --water-blue-d: 12, 36, 80;
+    --water-splash-0: 20, 164, 110;
+    --water-splash-d: 18, -24, 100;
+    --water-alpha-min: 0.05;
+    --water-alpha-max: 0.62;
+}
+
+[data-theme="light"] {
+    color-scheme: light;
+    --bg: #f4efe6;
+    --fg: #141311;
+    --muted: #5c574f;
+    --line: rgba(20, 19, 17, 0.16);
+    --link-line: rgba(20, 19, 17, 0.45);
+    --code-bg: rgba(20, 19, 17, 0.06);
+    --pre-bg: rgba(20, 19, 17, 0.04);
+    --selection: rgba(20, 19, 17, 0.14);
+    --water-bg: #f4efe6;
+    --water-green-0: 0, 176, 104;
+    --water-green-d: 18, 52, 12;
+    --water-blue-0: 16, 132, 240;
+    --water-blue-d: 18, 36, 12;
+    --water-splash-0: 0, 198, 142;
+    --water-splash-d: 24, -18, 64;
+    --water-alpha-min: 0.22;
+    --water-alpha-max: 0.9;
+}
+
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme]) .theme-icon-moon {
+        display: none;
+    }
+
+    :root:not([data-theme]) .theme-icon-sun {
+        display: block;
+    }
+
+    :root:not([data-theme]) {
+        color-scheme: light;
+        --bg: #f4efe6;
+        --fg: #141311;
+        --muted: #5c574f;
+        --line: rgba(20, 19, 17, 0.16);
+        --link-line: rgba(20, 19, 17, 0.45);
+        --code-bg: rgba(20, 19, 17, 0.06);
+        --pre-bg: rgba(20, 19, 17, 0.04);
+        --selection: rgba(20, 19, 17, 0.14);
+        --water-bg: #f4efe6;
+        --water-green-0: 0, 176, 104;
+        --water-green-d: 18, 52, 12;
+        --water-blue-0: 16, 132, 240;
+        --water-blue-d: 18, 36, 12;
+        --water-splash-0: 0, 198, 142;
+        --water-splash-d: 24, -18, 64;
+        --water-alpha-min: 0.22;
+        --water-alpha-max: 0.9;
+    }
 }
 
 * {
@@ -146,12 +210,60 @@ nav .language-toggle {
     gap: 1rem;
 }
 
+.nav-tools {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.theme-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    line-height: inherit;
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    color: var(--fg);
+}
+
+.theme-icon {
+    display: block;
+    flex: 0 0 auto;
+    transform: translateY(0.14em);
+}
+
+.theme-icon-moon {
+    transform: translateY(0.22em);
+}
+
+.theme-icon-sun {
+    display: none;
+}
+
+[data-theme="light"] .theme-icon-moon {
+    display: none;
+}
+
+[data-theme="light"] .theme-icon-sun {
+    display: block;
+}
+
 nav a {
     position: relative;
     color: var(--muted);
 }
 
 nav a::after,
+.theme-toggle::after,
 .social-icon::after {
     content: "";
     position: absolute;
@@ -208,14 +320,14 @@ pre,
 
 code {
     padding: 0.1em 0.35em;
-    background: rgba(244, 239, 230, 0.06);
+    background: var(--code-bg);
     border-radius: 4px;
 }
 
 .highlight,
 pre.highlight {
     padding: 0.9rem 1rem;
-    background: rgba(244, 239, 230, 0.04);
+    background: var(--pre-bg);
     border-radius: 8px;
     overflow-x: auto;
     margin: 1.2rem 0;
@@ -296,7 +408,7 @@ footer {
 }
 
 @media (min-width: 961px) {
-    body:has(main.inset) .language-toggle {
+    body:has(main.inset) .nav-tools {
         transform: translateX(calc(var(--inset-shift) + var(--inset-width) + 3rem - var(--width)));
     }
 
@@ -348,12 +460,17 @@ footer {
 }
 
 ::selection {
-    background: rgba(244, 239, 230, 0.18);
+    background: var(--selection);
 }
 
 @media only screen and (max-width: 560px) {
     body {
         padding: 1.75rem 1.15rem 1.25rem;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        row-gap: 0.55rem;
     }
 
     header {

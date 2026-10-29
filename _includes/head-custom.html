@@ -1,7 +1,21 @@
+<script>
+  (function () {
+    var theme = "dark";
+    try {
+      var stored = localStorage.getItem("theme");
+      if (stored === "light" || stored === "dark") theme = stored;
+      else if (window.matchMedia("(prefers-color-scheme: light)").matches) theme = "light";
+    } catch (error) {
+      if (window.matchMedia("(prefers-color-scheme: light)").matches) theme = "light";
+    }
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="{{ '/assets/css/global.css' | relative_url }}" rel="stylesheet">
+<script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
 
 <script>
   window.MathJax = {

@@ -20,7 +20,18 @@
   var MIX_SCALE = MIX_N - 1;
   var SPLASH_SCALE = SPLASH_N - 1;
   var ALPHA_N = 32;
-  var ALPHA_SCALE = (ALPHA_N - 1) / 0.62;
+  var alphaMin = 0.05;
+  var alphaMax = 0.62;
+  var alphaScale = (ALPHA_N - 1) / alphaMax;
+  var palette = {
+    bg: "#141311",
+    green0: [16, 92, 58],
+    greenD: [14, 70, 18],
+    blue0: [22, 96, 150],
+    blueD: [12, 36, 80],
+    splash0: [20, 164, 110],
+    splashD: [18, -24, 100],
+  };
 
   var HASH = new Float32Array(256 * 256);
   for (var hy = 0; hy < 256; hy++) {
@@ -90,7 +101,36 @@
     return Math.round(value);
   }
 
+  function readTriplet(style, name, fallback) {
+    var raw = style.getPropertyValue(name);
+    if (!raw) return fallback;
+    var parts = raw.split(",");
+    if (parts.length < 3) return fallback;
+    var values = [parseFloat(parts[0]), parseFloat(parts[1]), parseFloat(parts[2])];
+    if (isNaN(values[0]) || isNaN(values[1]) || isNaN(values[2])) return fallback;
+    return values;
+  }
+
+  function readPalette() {
+    var style = getComputedStyle(document.documentElement);
+    var bg = style.getPropertyValue("--water-bg").trim();
+    if (bg) palette.bg = bg;
+    palette.green0 = readTriplet(style, "--water-green-0", palette.green0);
+    palette.greenD = readTriplet(style, "--water-green-d", palette.greenD);
+    palette.blue0 = readTriplet(style, "--water-blue-0", palette.blue0);
+    palette.blueD = readTriplet(style, "--water-blue-d", palette.blueD);
+    palette.splash0 = readTriplet(style, "--water-splash-0", palette.splash0);
+    palette.splashD = readTriplet(style, "--water-splash-d", palette.splashD);
+    var nextMin = parseFloat(style.getPropertyValue("--water-alpha-min"));
+    var nextMax = parseFloat(style.getPropertyValue("--water-alpha-max"));
+    if (!isNaN(nextMin)) alphaMin = nextMin;
+    if (!isNaN(nextMax)) alphaMax = nextMax;
+    if (alphaMax < alphaMin + 0.05) alphaMax = alphaMin + 0.05;
+    alphaScale = (ALPHA_N - 1) / alphaMax;
+  }
+
   function buildAtlas() {
+    readPalette();
     if (!dpr) return;
     spriteSize = CELL * dpr;
     var sheet = document.createElement("canvas");
@@ -110,19 +150,19 @@
         var sy = (si * MIX_N + mi) * spriteSize + spriteSize * 0.5;
         for (var ci = 0; ci < CREST_N; ci++) {
           var crest = (ci / (CREST_N - 1)) * CREST_MAX;
-          var greenR = 16 + crest * 14;
-          var greenG = 92 + crest * 70;
-          var greenB = 58 + crest * 18;
-          var blueR = 22 + crest * 12;
-          var blueG = 96 + crest * 36;
-          var blueB = 150 + crest * 80;
+          var greenR = palette.green0[0] + crest * palette.greenD[0];
+          var greenG = palette.green0[1] + crest * palette.greenD[1];
+          var greenB = palette.green0[2] + crest * palette.greenD[2];
+          var blueR = palette.blue0[0] + crest * palette.blueD[0];
+          var blueG = palette.blue0[1] + crest * palette.blueD[1];
+          var blueB = palette.blue0[2] + crest * palette.blueD[2];
           var red = greenR + (blueR - greenR) * mix;
           var green = greenG + (blueG - greenG) * mix;
           var blue = greenB + (blueB - greenB) * mix;
           if (splash > 0.05) {
-            var splashR = 20 + mix * 18;
-            var splashG = 164 - mix * 24;
-            var splashB = 110 + mix * 100;
+            var splashR = palette.splash0[0] + mix * palette.splashD[0];
+            var splashG = palette.splash0[1] + mix * palette.splashD[1];
+            var splashB = palette.splash0[2] + mix * palette.splashD[2];
             red = red * (1 - splash) + splashR * splash;
             green = green * (1 - splash) + splashG * splash;
             blue = blue * (1 - splash) + splashB * splash;
@@ -363,7 +403,7 @@
     var viewH = canvas.clientHeight;
     if (viewW < 1 || viewH < 1) return;
     ctx.globalAlpha = 1;
-    ctx.fillStyle = "#141311";
+    ctx.fillStyle = palette.bg;
     ctx.fillRect(0, 0, viewW, viewH);
     if (!atlas) return;
 
@@ -412,6 +452,8 @@
           if (alpha < 0.05) continue;
           alpha *= 0.62 + 0.38 * speak;
         }
+        alpha = alphaMin + ((alpha - 0.05) / 0.57) * (alphaMax - alphaMin);
+        if (alpha > alphaMax) alpha = alphaMax;
 
         var glyph = 0;
         if (hit > 0.4 || crest > 0.82) glyph = 2;
@@ -423,7 +465,7 @@
         if (mixIndex > MIX_N - 1) mixIndex = MIX_N - 1;
         var splashIndex = splashAmt <= 0.05 ? 0 : splashAmt * SPLASH_SCALE + 0.5;
         if (splashIndex > SPLASH_N - 1) splashIndex = SPLASH_N - 1;
-        var bucket = alpha * ALPHA_SCALE + 0.5;
+        var bucket = alpha * alphaScale + 0.5;
         if (bucket > ALPHA_N - 1) bucket = ALPHA_N - 1;
 
         packBucket[packN] = bucket;
@@ -453,7 +495,7 @@
     for (var b = 0; b < ALPHA_N; b++) {
       var end = alphaStart[b] + alphaCount[b];
       if (alphaStart[b] === end) continue;
-      ctx.globalAlpha = b / ALPHA_SCALE;
+      ctx.globalAlpha = b / alphaScale;
       for (var p = alphaStart[b]; p < end; p++) {
         var bits = packOrder[p];
         ctx.drawImage(
@@ -532,6 +574,11 @@
     }, 2800 + Math.random() * 2600);
   }
 
+  document.addEventListener("themechange", function () {
+    readPalette();
+    if (dpr) buildAtlas();
+    paint();
+  });
   window.addEventListener("resize", requestResize);
   window.addEventListener("scroll", markMask, { passive: true });
   window.addEventListener(
@@ -578,6 +625,7 @@
     document.fonts.ready.then(refreshGlyphs);
   }
 
+  readPalette();
   resizePending = true;
   if (reduced.matches) markMask();
   else {
